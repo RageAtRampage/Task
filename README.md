@@ -11,7 +11,7 @@ Documentation with Instructions
 Code shall be well documented using Javadoc standards with all Exception Handling  and validations.
 
 # Note
-The project is made using Java 11. You need to change application.properties file present in "src/main/resources" to connect to the database. The database with name taskdb and table with Numbers will be created automatically. Example application.properties
+The project is made using Java 11 and Eclipse. You need to change application.properties file present in "src/main/resources" to connect to the database. The database with name taskdb and table with Numbers will be created automatically. Example application.properties
 
 spring.jpa.hibernate.ddl-auto=update
 spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/taskdb
@@ -23,6 +23,8 @@ You need to change username, password according to your MySQL and "${MYSQL_HOST:
 # Instructions
 Follow the following guide to deploy after changing application.properties file.
 https://www.edureka.co/blog/spring-boot-setup-helloworld-microservices-example/
+
+There are 2 mehods described in the tutorial you can use any one of the methods.
 
 The url to get number value: GET http://localhost:8080/task
 The url to increment number value: POST http://localhost:8080/task
