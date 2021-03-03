@@ -24,7 +24,7 @@ The increment value of number in the database using Optimistic locking, Pessimis
 
 For Optimistic locking change "incrementNumbers" to 
 ------------------------------------------------------------------------
-
+```
 @Override
 @Retryable(value = { LockTimeoutException.class, StaleObjectStateException.class, SQLTransientConnectionException.class }, maxAttempts = 10000)
 public boolean incrementNumbers() {
@@ -39,12 +39,12 @@ public boolean incrementNumbers() {
 	}
 	return true;
 }
-
+```
 -------------------------------------------------------------------------
 
 For Pessimistic locking change "incrementNumbers" to 
 ------------------------------------------------------------------------
-
+```
 @Override
 @Transactional
 @Retryable(value = { LockTimeoutException.class, StaleObjectStateException.class, SQLTransientConnectionException.class }, maxAttempts = 10000)
@@ -60,12 +60,12 @@ public boolean incrementNumbers() {
 	}
 	return true;
 }
-
+```
 -------------------------------------------------------------------------
 
 For Using combination of update query and @Transactional locking change "incrementNumbers" to 
 ------------------------------------------------------------------------
-
+```
 @Override
 @Transactional
 @Retryable(value = { LockTimeoutException.class, StaleObjectStateException.class, SQLTransientConnectionException.class }, maxAttempts = 10000)
@@ -73,7 +73,7 @@ public boolean incrementNumbers() {
 	taskRepo.incrementNumbersInDB((long) 1);
 	return true;
 }
-
+```
 -------------------------------------------------------------------------
 
 # Instructions
