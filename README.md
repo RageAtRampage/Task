@@ -23,12 +23,12 @@ INSERT INTO `numbers`(`id`, `number`, `version`) VALUES (1,0,0);
 ```
 # Note
 The project is made using Java 11 and Eclipse. You need to change application.properties file present in "src/main/resources" to connect to the database.  Example application.properties
-
+```
 spring.jpa.hibernate.ddl-auto=update
 spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/taskdb
 spring.datasource.username=root
 spring.datasource.password=
-
+```
 You need to change username, password according to your MySQL and "${MYSQL_HOST:localhost}:3306" from url according to your MySQL host url.
 
 The increment value of number in the database using Optimistic locking, Pessimistic locking and Using combination of update query and @Transactional based on the "incrementNumbers" method defined in "TaskServiceImpl" class. It is set to use optimistic locking by default.
