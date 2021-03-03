@@ -20,6 +20,62 @@ spring.datasource.password=
 
 You need to change username, password according to your MySQL and "${MYSQL_HOST:localhost}:3306" from url according to your MySQL host url.
 
+The increment value of number in the database using Optimistic locking, Pessimistic locking and Using combination of update query and @Transactional based on the "incrementNumbers" method defined in "TaskServiceImpl" class. It is set to use optimistic locking by default.
+
+For Optimistic locking change "incrementNumbers" to 
+------------------------------------------------------------------------
+
+@Override
+@Retryable(value = { LockTimeoutException.class, StaleObjectStateException.class, SQLTransientConnectionException.class }, maxAttempts = 10000)
+public boolean incrementNumbers() {
+	Optional<Numbers> num = taskRepo.findById((long) 1);
+	if (num.isPresent()) {
+		num.get().setNumber(num.get().getNumber() + 1);
+		taskRepo.save(num.get());
+	} else {
+		Numbers n = new Numbers();
+		n.setNumber((long) 1);
+		taskRepo.save(n);
+	}
+	return true;
+}
+
+-------------------------------------------------------------------------
+
+For Pessimistic locking change "incrementNumbers" to 
+------------------------------------------------------------------------
+
+@Override
+@Transactional
+@Retryable(value = { LockTimeoutException.class, StaleObjectStateException.class, SQLTransientConnectionException.class }, maxAttempts = 10000)
+public boolean incrementNumbers() {
+	Optional<Numbers> num = taskRepo.getNumbersUsingPessimisticLock((long) 1);
+	if (num.isPresent()) {
+		num.get().setNumber(num.get().getNumber() + 1);
+		taskRepo.save(num.get());
+	} else {
+		Numbers n = new Numbers();
+		n.setNumber((long) 1);
+		taskRepo.save(n);
+	}
+	return true;
+}
+
+-------------------------------------------------------------------------
+
+For Using combination of update query and @Transactional locking change "incrementNumbers" to 
+------------------------------------------------------------------------
+
+@Override
+@Transactional
+@Retryable(value = { LockTimeoutException.class, StaleObjectStateException.class, SQLTransientConnectionException.class }, maxAttempts = 10000)
+public boolean incrementNumbers() {
+	taskRepo.incrementNumbersInDB((long) 1);
+	return true;
+}
+
+-------------------------------------------------------------------------
+
 # Instructions
 Follow the following guide to deploy after changing application.properties file.
 https://www.edureka.co/blog/spring-boot-setup-helloworld-microservices-example/

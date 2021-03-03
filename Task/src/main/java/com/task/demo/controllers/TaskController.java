@@ -30,7 +30,7 @@ public class TaskController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<Object> getNumbers() {
-		logger.info("Getting number..");
+		//logger.info("Getting number..");
 		return new ResponseEntity<Object>(taskService.getNumbers(), HttpStatus.OK);
 	}
 
@@ -41,7 +41,7 @@ public class TaskController {
 	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> incrementNumber() {
-		logger.info("Incrementing number..");
+		//logger.info("Incrementing number..");
 		taskService.incrementNumbers();
 		return new ResponseEntity<Object>(new Message("Successfully Icremented the number"), HttpStatus.ACCEPTED);
 	}
