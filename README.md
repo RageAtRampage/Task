@@ -10,8 +10,19 @@ Jmeter (.jmx) file.
 Documentation with Instructions 
 Code shall be well documented using Javadoc standards with all Exception Handling  and validations.
 
+# Database setup
+Run the following queries on your database
+```
+CREATE DATABASE taskdb;
+CREATE TABLE numbers(
+	id int PRIMARY KEY,
+	number int,
+	version int
+);
+INSERT INTO `numbers`(`id`, `number`, `version`) VALUES (1,0,0);
+```
 # Note
-The project is made using Java 11 and Eclipse. You need to change application.properties file present in "src/main/resources" to connect to the database. The database with name taskdb and table with Numbers will be created automatically. Example application.properties
+The project is made using Java 11 and Eclipse. You need to change application.properties file present in "src/main/resources" to connect to the database.  Example application.properties
 
 spring.jpa.hibernate.ddl-auto=update
 spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/taskdb
